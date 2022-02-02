@@ -34,9 +34,66 @@ class BST {
         return root;
     }
 
-    // Node deleteNode(Node root, int data){
-    // if
-    // }
+    // Delete a node.
+    void deleteCall(int key) {
+        root = deleteNode(root, key);
+    }
+
+    Node deleteNode(Node root, int data) {
+        if (root == null) {
+            return root;
+        }
+
+        if (data < root.data) {
+            root.left = deleteNode(root.left, data);
+        } else if (data > root.data) {
+            root.right = deleteNode(root.right, data);
+        } else {
+            if (root.left == null) {
+                return root.right;
+            } else if (root.right == null) {
+                return root.left;
+            }
+
+            root.data = minimum(root.right);
+
+            root.right = deleteNode(root.right, root.data);
+
+        }
+        return root;
+    }
+
+    void callFunction(String call) {
+
+        switch (call) {
+            case "minimum":
+                minimum(root);
+                break;
+            case "maximum":
+                maximum(root);
+                break;
+            case "inorder":
+                inorderPrint(root);
+                break;
+        }
+
+    }
+
+    int minimum(Node root) {
+        while (root.left != null) {
+            root = root.left;
+        }
+        System.out.println("Minimum is " + root.data);
+        return root.data;
+    }
+
+    int maximum(Node root) {
+        while (root.right != null) {
+            root = root.right;
+        }
+        System.out.println("Miximum is " + root.data);
+        return root.data;
+    }
 
     void callSearch(int data) {
         searchNode(root, data);
@@ -53,10 +110,6 @@ class BST {
 
             return searchNode(root.right, data);
         }
-    }
-
-    void callInorder() {
-        inorderPrint(root);
     }
 
     void inorderPrint(Node root) {
@@ -78,11 +131,14 @@ class BST {
         tree.insertCall(50);
         tree.insertCall(20);
         tree.insertCall(150);
+        tree.insertCall(1);
 
-        tree.callInorder();
-
-        tree.callSearch(150);
-
+        tree.callFunction("inorder");
+        tree.callFunction("minimum");
+        tree.callFunction("maximum");
+        tree.deleteCall(10);
+        System.out.println("---------- this is after delete ---------");
+        tree.callFunction("inorder");
     }
 
 }
