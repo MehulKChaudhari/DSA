@@ -31,16 +31,25 @@ class LinkedList {
 
     public static LinkedList deleteNode(LinkedList list, int key) {
         Node currNode = list.headNode;
-        Node prevNode = list.headNode;
+        Node prevNode = null;
 
-        while (currNode.next != null && currNode.key != key) {
-            currNode = prevNode;
-            currNode = currNode.next;
+        if (currNode != null && currNode.key == key) {
+            list.headNode = currNode.next;
+            System.out.println(" Deleted ===>" + key);
+            return list;
 
         }
-        System.out.println("deleting");
-        if (currNode.key == key) {
+
+        while (currNode.next != null && currNode.key != key) {
+            prevNode = currNode;
+            currNode = currNode.next;
+        }
+
+        if (currNode != null && currNode.key == key) {
             prevNode.next = currNode.next;
+            System.out.println(" Deleted ===>" + key);
+        } else {
+            System.out.println(key + " Was not found!!!");
         }
 
         return list;
@@ -64,8 +73,8 @@ class LinkedList {
 
             list = insertNode(list, i);
         }
-        
-        list = deleteNode(list, 10);
+
+        list = deleteNode(list, 20);
 
         printList(list);
     }
