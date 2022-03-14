@@ -61,6 +61,14 @@ class Heaps {
         size++;
     }
 
+    public void delete(int i) {
+
+        Heap[i] = Heap[size];
+        size--;
+
+        Max_Heapify(i);
+    }
+
     public void printHeap() {
 
         for (int i = 0; i < size; i++) {
@@ -73,11 +81,14 @@ class Heaps {
         Heaps heap = new Heaps(10);
 
         heap.insert(10);
-        heap.printHeap();
         heap.insert(15);
         heap.insert(20);
         heap.insert(25);
         heap.insert(12);
+        heap.printHeap();
+        System.out.println("before delete");
+        heap.delete(4);
+        System.out.println("after delete");
         heap.printHeap();
     }
 }
